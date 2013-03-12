@@ -13,7 +13,14 @@ role :web, "#{domain}"  # Your HTTP server, Apache/etc
 role :app, "#{domain}"  # This may be the same as your `Web` server
 role :db, domain, :primary => true
 
-set (:branch) { "int/20130326" }
+set :branch do
+  current_branch = `git branch`.match(/\* (\S+)\s/m)[1]
+
+  branch = Capistrano::CLI.ui.ask "Which branch would you like to deploy to QA? (current branch: [#{current_branch}]) "
+  branch = current_branch if branch.empty?
+  branch
+end
+
 set (:deploy_to) { "/opt/stateadm/communities" }
 set (:app_loc) { "/appl/wordpress/www/community/community/wp-content" }
 

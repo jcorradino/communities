@@ -1,4 +1,5 @@
 #adding line to test stuff
+set :git_enable_submodules, 1
 set(:user) { "stateadm" }
 
 set(:domain) { "comapp401p.qa.ch4.s.com" }
